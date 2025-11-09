@@ -1,9 +1,12 @@
-import { Layout } from './components/layout/Layout';
+import { Layout } from './features/components/layout/Layout';
+import { AuthForm } from './features/auth/AuthForm';
 
 function App() {
   return (
     <Layout>
-      <div></div>
+      <div>
+        <AuthForm />
+      </div>
     </Layout>
   );
 }
