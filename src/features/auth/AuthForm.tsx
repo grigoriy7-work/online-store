@@ -82,22 +82,9 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
     },
   });
 
-  let title = <h2></h2>;
-  switch (type) {
-    case 'signIn':
-      title = <h2>Вход</h2>;
-      break;
-    case 'signUp':
-      title = <h2>Регистрация</h2>;
-      break;
-  }
-
   return (
-    <div>
+    <>
       {contextHolder}
-      {title}
-      {isErrorSignIn && 'ошибка'}
-
       <form onSubmit={formik.handleSubmit}>
         <Space direction="vertical" size="small">
           <Input
@@ -122,6 +109,6 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
           <Button htmlType="submit">Отправить</Button>
         </Space>
       </form>
-    </div>
+    </>
   );
 });
