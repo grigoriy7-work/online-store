@@ -4,7 +4,7 @@ import { setToken } from './authSlice';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://19429ba06ff2.vps.myjino.ru/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   endpoints: (builder) => ({
     signUp: builder.mutation<ResultFetchAuth, SignUpBody>({
       query: (userData) => ({
