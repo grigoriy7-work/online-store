@@ -1,5 +1,7 @@
+@import url(./../assets/styles/colors.css);
+
 .page {
-    background-color: white;
+    background-color: var(--backgroung-color-content);
     padding: 10px 50px 20px 50px;
     border-radius: 5px;    
 }
