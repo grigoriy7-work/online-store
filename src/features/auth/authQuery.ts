@@ -13,12 +13,8 @@ export const authApi = createApi({
         body: userData,
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const result = await queryFulfilled;
-          dispatch(setToken(result.data.authResult?.token));
-        } catch (error) {
-          console.error('Ошибка регистрации: ', error);
-        }
+        const result = await queryFulfilled;
+        dispatch(setToken(result.data.authResult?.token));
       },
     }),
     signIn: builder.mutation<AuthResult, SignInBody>({
@@ -28,13 +24,8 @@ export const authApi = createApi({
         body: userData,
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const result = await queryFulfilled;
-          console.info('result', result);
-          dispatch(setToken(result.data.token));
-        } catch (error) {
-          console.error('Ошибка аутентификации: ', error);
-        }
+        const result = await queryFulfilled;
+        dispatch(setToken(result.data.token));
       },
     }),
   }),

@@ -5,7 +5,7 @@ function App() {
   return (
     <Layout>
       <div>
-        <AuthForm />
+        <AuthForm type="signIn" />
       </div>
     </Layout>
   );

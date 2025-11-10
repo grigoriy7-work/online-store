@@ -1,20 +1,51 @@
 import type { FC } from 'react';
-import { memo } from 'react';
-import { Input, Space, Button } from 'antd';
+import { memo, useEffect } from 'react';
+import { Input, Space, Button, notification } from 'antd';
 import { useFormik } from 'formik';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../app/store';
-import { /*useSignUpMutation,*/ useSignInMutation } from './authQuery';
+import { useSignUpMutation, useSignInMutation } from './authQuery';
+import type { ServerErrors } from './../../app/api/typesError';
 
 type User = {
   email: string;
   password: string;
 };
 
-export const AuthForm: FC = memo(() => {
-  const token = useSelector((state: RootState) => state.auth.token);
-  //const [signUp] = useSignUpMutation();
-  const [signIn] = useSignInMutation();
+interface AuthFormProps {
+  type: 'signIn' | 'signUp';
+}
+
+export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
+  const [signUp, { isError: isErrorSignUp, error: errorSignUp }] = useSignUpMutation();
+  const [signIn, { isError: isErrorSignIn, error: errorSignIn }] = useSignInMutation();
+  const [api, contextHolder] = notification.useNotification();
+
+  useEffect(() => {
+    const serverError = errorSignUp as { status: number; data: ServerErrors };
+    if (serverError) {
+      if (serverError.data.errors.length > 0) {
+        const firstError = serverError.data.errors[0];
+        api.error({
+          message: `Ошибка регистрации: ${firstError.name}`,
+          description: firstError.message,
+          placement: 'top',
+        });
+      }
+    }
+  }, [isErrorSignUp]);
+
+  useEffect(() => {
+    const serverError = errorSignIn as { status: number; data: ServerErrors };
+    if (serverError) {
+      if (serverError.data.errors.length > 0) {
+        const firstError = serverError.data.errors[0];
+        api.error({
+          message: `Ошибка аутентификации: ${firstError.name}`,
+          description: firstError.message,
+          placement: 'top',
+        });
+      }
+    }
+  }, [isErrorSignIn]);
 
   const validate = (values: User) => {
     const errors: Partial<User> = {};
@@ -40,13 +71,33 @@ export const AuthForm: FC = memo(() => {
     validate,
     onSubmit: async (values) => {
       console.info('values', values);
-      await signIn(values);
+      switch (type) {
+        case 'signIn':
+          await signIn(values);
+          break;
+        case 'signUp':
+          await signUp({ ...values, commandId: import.meta.env.VITE_COMMANDID });
+          break;
+      }
     },
   });
 
+  let title = <h2></h2>;
+  switch (type) {
+    case 'signIn':
+      title = <h2>Вход</h2>;
+      break;
+    case 'signUp':
+      title = <h2>Регистрация</h2>;
+      break;
+  }
+
   return (
     <div>
-      <h2>Регистрация</h2>
+      {contextHolder}
+      {title}
+      {isErrorSignIn && 'ошибка'}
+
       <form onSubmit={formik.handleSubmit}>
         <Space direction="vertical" size="small">
           <Input
