@@ -5,3 +5,7 @@ export type Profile = {
   signUpDate: Date;
   commandId: string;
 };
+
+export type UpdateProfileBody = {
+  name: string;
+};

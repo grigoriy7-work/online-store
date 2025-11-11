@@ -1,5 +1,6 @@
 import { baseApi } from '../../app/api/baseApi';
-import type { Profile } from '../../app/api/types/typesProfile';
+import type { Profile, UpdateProfileBody } from '../../app/api/types/typesProfile';
+import { setProfile } from './profileSlice';
 
 export const profileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,7 +9,18 @@ export const profileApi = baseApi.injectEndpoints({
         url: 'profile',
       }),
     }),
+    updateProfile: builder.mutation<Profile, UpdateProfileBody>({
+      query: (profileData) => ({
+        method: 'PATCH',
+        url: 'profile',
+        body: profileData,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const result = await queryFulfilled;
+        dispatch(setProfile(result.data));
+      },
+    }),
   }),
 });
 
-export const { useLazyGetProfileQuery } = profileApi;
+export const { useLazyGetProfileQuery, useUpdateProfileMutation } = profileApi;

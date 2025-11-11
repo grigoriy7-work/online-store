@@ -5,6 +5,7 @@ import type { FormProps } from 'antd';
 import { useLazyGetProfileQuery } from './profileEndpoints';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
+import { useUpdateProfileMutation } from './profileEndpoints';
 
 type FieldType = {
   name?: string;
@@ -12,14 +13,11 @@ type FieldType = {
   signUpDate?: Date;
 };
 
-const onFinishHandler: FormProps<FieldType>['onFinish'] = (values) => {
-  console.info('onFinish', values);
-};
-
 export const ProfileForm: FC = memo(() => {
   const token = useSelector((state: RootState) => state.auth.token);
   const [form] = Form.useForm();
   const [trigger, { data }] = useLazyGetProfileQuery();
+  const [updateProfile] = useUpdateProfileMutation();
 
   useEffect(() => {
     if (token) trigger();
@@ -28,6 +26,10 @@ export const ProfileForm: FC = memo(() => {
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data]);
+
+  const onFinishHandler: FormProps<FieldType>['onFinish'] = async (values) => {
+    if (values.name) await updateProfile({ name: values.name });
+  };
 
   return (
     <Form
