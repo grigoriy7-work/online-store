@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import { memo, useEffect } from 'react';
 import { Input, Space, Button, notification } from 'antd';
 import { useFormik } from 'formik';
-import { useSignUpMutation, useSignInMutation } from './authQuery';
-import type { ServerErrors } from './../../app/api/typesError';
+import { useSignUpMutation, useSignInMutation } from './authEndpoints';
+import type { ServerErrors } from '../../app/api/types/typesError';
 
 type User = {
   email: string;

@@ -1,10 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { SignUpBody, SignInBody, ResultFetchAuth, AuthResult } from '../../app/api/types';
+import { baseApi } from '../../app/api/baseApi';
+import type {
+  SignUpBody,
+  SignInBody,
+  ResultFetchAuth,
+  AuthResult,
+} from '../../app/api/types/types';
 import { setToken } from './authSlice';
 
-export const authApi = createApi({
-  reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
+export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     signUp: builder.mutation<ResultFetchAuth, SignUpBody>({
       query: (userData) => ({
