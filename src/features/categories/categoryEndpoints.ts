@@ -1,9 +1,19 @@
 import { baseApi } from '../../app/api/baseApi';
-import type { Category, Params } from '../../app/api/types/typesCategories';
+import type {
+  Category,
+  Params,
+  Filters,
+  CategoryResult,
+} from '../../app/api/types/typesCategories';
 import { saveCategory } from './categorySlice';
 
 export const categoryEndpoints = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getCategories: builder.query<CategoryResult, Filters>({
+      query: () => ({
+        url: 'categories',
+      }),
+    }),
     createCategory: builder.mutation<Category, Params>({
       query: (profileData) => ({
         method: 'POST',
@@ -18,4 +28,4 @@ export const categoryEndpoints = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateCategoryMutation } = categoryEndpoints;
+export const { useLazyGetCategoriesQuery, useCreateCategoryMutation } = categoryEndpoints;
