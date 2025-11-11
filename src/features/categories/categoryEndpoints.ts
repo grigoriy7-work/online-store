@@ -1,10 +1,6 @@
 import { baseApi } from '../../app/api/baseApi';
-import type {
-  Category,
-  Params,
-  Filters,
-  CategoryResult,
-} from '../../app/api/types/typesCategories';
+import type { Category, Params, CategoryResult } from '../../app/api/types/typesCategories';
+import type { Filters } from './../../app/api/types/types';
 import { saveCategory } from './categorySlice';
 
 export const categoryEndpoints = baseApi.injectEndpoints({
