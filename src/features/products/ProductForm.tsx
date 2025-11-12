@@ -31,15 +31,22 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form }) => {
   const onFinishHandler: FormProps<Params>['onFinish'] = async (values) => {
     console.info('values', values);
 
-    const firstFile = fileList?.[0]?.originFileObj;
+    /*const firstFile = fileList?.[0]?.originFileObj;
     if (!firstFile) return;
     const formData = new FormData();
     formData.append('file', firstFile);
+    
     try {
       const responseUploadFile = await uploadFile(formData).unwrap();
       if (responseUploadFile.url) {
         await createProduct({ ...values, photo: responseUploadFile.url }).unwrap();
       }
+    } catch (error) {
+      console.error('error create product', error);
+    }*/
+
+    try {
+      await createProduct(values).unwrap();
     } catch (error) {
       console.error('error create product', error);
     }
