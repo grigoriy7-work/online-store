@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 import { List, Card } from 'antd';
 import type { Product } from '../../app/api/types/typesProducts';
-import product_tea from './../../assets/images/product_tea.png';
 
 export interface ProductListProps {
   products: Product[];
@@ -18,7 +17,7 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
         <List.Item>
           <Card
             hoverable
-            cover={<img draggable={false} alt={`фото ${product.name}`} src={product_tea} />}
+            cover={<img draggable={false} alt={`фото ${product.name}`} src={product.photo} />}
           >
             <Meta title={product.name} description={'цена: ' + product.price} />
           </Card>

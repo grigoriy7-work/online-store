@@ -1,12 +1,16 @@
 import type { FC } from 'react';
-import { memo, useEffect } from 'react';
-import { Form, Input, InputNumber, Select } from 'antd';
+import { memo, useEffect, useState } from 'react';
+import { Form, Input, InputNumber, Select, Upload } from 'antd';
 import type { FormInstance, FormProps } from 'antd';
 import type { Params } from '../../app/api/types/typesProducts';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './../categories/categoryEndpoints';
 import { useCreateProductMutation } from './productEndpoints';
+import { useUploadFileMutation } from './../../app/api/baseEndpoints';
+import type { UploadChangeParam, UploadFile } from 'antd/es/upload/interface';
+
+const { Dragger } = Upload;
 
 interface ProductFormProps {
   form: FormInstance<any>;
@@ -16,10 +20,29 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form }) => {
   const token = useSelector((state: RootState) => state.auth.token);
   const [trigger, { data: categories }] = useLazyGetCategoriesQuery();
   const [createProduct] = useCreateProductMutation();
+  const [uploadFile] = useUploadFileMutation();
+  const [fileList, setFileList] = useState(Array<UploadFile>);
+
+  const handleChange = (info: UploadChangeParam<UploadFile<any>>) => {
+    let newFileList = [...info.fileList];
+    setFileList(newFileList);
+  };
 
   const onFinishHandler: FormProps<Params>['onFinish'] = async (values) => {
     console.info('values', values);
-    if (values.name) await createProduct(values);
+
+    const firstFile = fileList?.[0]?.originFileObj;
+    if (!firstFile) return;
+    const formData = new FormData();
+    formData.append('file', firstFile);
+    try {
+      const responseUploadFile = await uploadFile(formData).unwrap();
+      if (responseUploadFile.url) {
+        await createProduct({ ...values, photo: responseUploadFile.url }).unwrap();
+      }
+    } catch (error) {
+      console.error('error create product', error);
+    }
   };
 
   const dataCategories =
@@ -68,8 +91,16 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form }) => {
       <Form.Item<Params> label="Описание" name="desc">
         <TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
       </Form.Item>
-      <Form.Item<Params> label="Фото" name="photo">
-        <Input />
+      <Form.Item<Params>
+        label="Фото"
+        rules={[{ required: true, message: 'Пожалуйста, выберите файл!' }]}
+      >
+        <Dragger
+          beforeUpload={() => false}
+          maxCount={1}
+          fileList={fileList}
+          onChange={handleChange}
+        ></Dragger>
       </Form.Item>
     </Form>
   );
