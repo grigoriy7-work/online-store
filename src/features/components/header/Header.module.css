@@ -11,4 +11,9 @@
   z-index: 1;
   background-color: var(--background-color-header);
   color: var(--text-color-light);
+
+  .nav-link {
+    text-decoration: none;
+    color: var(--text-color-ligh);
+  }
 }

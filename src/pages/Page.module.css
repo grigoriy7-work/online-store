@@ -1,8 +1,8 @@
 @import url(./../assets/styles/colors.css);
 
 .page {
-    background-color: var(--backgroung-color-content);
-    padding: 10px 50px 20px 50px;
-    border-radius: 5px;    
-    min-width: 80vw;
+  background-color: var(--backgroung-color-content);
+  padding: 10px 50px 20px 50px;
+  border-radius: 5px;
+  width: 90vw;
 }
