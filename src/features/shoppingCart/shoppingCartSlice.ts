@@ -5,7 +5,7 @@ interface ShoppingCartState {
 }
 
 const initialState: ShoppingCartState = {
-  productIdList: [],
+  productIdList: ['691410478e877ac8a9c6eb38', '691407138e877ac8a9c6eb12'],
 };
 
 export const shoppingCatSlice = createSlice({
