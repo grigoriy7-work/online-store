@@ -1,21 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface ShoppingCartState {
   productIdList: string[];
 }
 
 const initialState: ShoppingCartState = {
-  productIdList: ['691410478e877ac8a9c6eb38', '691407138e877ac8a9c6eb12'],
+  productIdList: [],
 };
 
 export const shoppingCatSlice = createSlice({
   name: 'shoppingCart',
   initialState,
   reducers: {
-    add: (state, action) => {
+    add: (state, action: PayloadAction<string>) => {
       state.productIdList.push(action.payload);
     },
-    remove: (state, action) => {
+    remove: (state, action: PayloadAction<string>) => {
       state.productIdList = state.productIdList.filter((id) => id !== action.payload);
     },
     clear: (state) => {

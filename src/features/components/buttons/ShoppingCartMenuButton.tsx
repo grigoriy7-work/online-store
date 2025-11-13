@@ -6,9 +6,9 @@ import { Badge } from 'antd';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
 
-export const ShoppingCartButton: FC = () => {
+export const ShoppingCartMenuButton: FC = () => {
   const productIdList = useSelector((state: RootState) => state.shoppingCart.productIdList);
-  const countProducts = productIdList.length;
+  const countProducts = [...new Set(productIdList)].length;
 
   return (
     <NavLink to="shopping-cart" className={sytles.link}>

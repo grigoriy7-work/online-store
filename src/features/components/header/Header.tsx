@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
-import { ProfileButton, LoginButton, ShoppingCartButton } from '../buttons';
+import { ProfileButton, LoginButton, ShoppingCartMenuButton } from '../buttons';
 import { Space } from 'antd';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
@@ -15,7 +15,7 @@ export const Header: FC = () => {
           <h1>Интернет-магазин</h1>
         </NavLink>
         <Space>
-          {isAuth ? <ShoppingCartButton /> : null}
+          {isAuth ? <ShoppingCartMenuButton /> : null}
           {isAuth ? <ProfileButton /> : <LoginButton />}
         </Space>
       </div>
