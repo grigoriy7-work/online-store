@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { useState } from 'react';
 import styles from './Page.module.css';
-import { Button, Modal, Form, Space } from 'antd';
+import { Button, Modal, Form } from 'antd';
 import { CategoryForm } from './../features/categories/CategoryForm';
 import { CategoryList } from './../features/categories/CategoryList';
 
@@ -24,12 +24,9 @@ export const CategoriesPage: FC = () => {
   return (
     <div className={styles.page}>
       <h2>Категории</h2>
-      <Space direction="vertical">
-        <Button onClick={showModal}>Создать</Button>
+      <Button onClick={showModal}>Создать</Button>
 
-        <CategoryList />
-      </Space>
-
+      <CategoryList />
       <Modal
         title="Создание категории"
         closable={{ 'aria-label': 'Custom Close Button' }}
