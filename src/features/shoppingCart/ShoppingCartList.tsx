@@ -11,7 +11,12 @@ export const ShoppingCartList: FC = memo(() => {
       header={<b>Продукты в корзине</b>}
       bordered
       dataSource={products}
-      renderItem={(product) => <List.Item>{product.name}</List.Item>}
+      renderItem={(product) => (
+        <List.Item>
+          <List.Item.Meta title={product.name} description={'цена: ' + product.price} />
+        </List.Item>
+      )}
+      style={{ width: '60vw' }}
     />
   );
 });

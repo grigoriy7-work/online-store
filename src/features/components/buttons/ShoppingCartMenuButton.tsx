@@ -13,7 +13,7 @@ export const ShoppingCartMenuButton: FC = () => {
 
   return (
     <NavLink to="shopping-cart" className={sytles.link}>
-      <Badge count={countProducts}>
+      <Badge count={countProducts} color="var(--color-primary)">
         <ShoppingCartOutlined
           style={{ display: 'block', fontSize: '2.3em', color: 'var(--text-color-light)' }}
         />
