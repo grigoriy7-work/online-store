@@ -1,9 +1,8 @@
 .content {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  padding-top: calc(90px + 40px);
   flex-direction: column;
-  min-height: calc(100vh - (90px + 40px));
   background-color: whitesmoke;
+  height: calc(100vh - 90px);
 }

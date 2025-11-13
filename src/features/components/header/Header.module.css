@@ -1,16 +1,19 @@
 @import url('./../../../assets/styles/colors.css');
 
 .header {
-  height: 90px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 5px;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
+  height: 90px;  
   background-color: var(--background-color-header);
-  color: var(--text-color-light);
+
+  display: flex;
+  justify-content: center;
+
+  .links {
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-color-light);
+  }
 
   .nav-link {
     text-decoration: none;
