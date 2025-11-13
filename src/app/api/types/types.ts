@@ -52,3 +52,8 @@ export type Filters = {
     field: 'id' | 'createdAt' | 'updatedAt' | 'name' | 'date';
   };
 };
+
+export type User = {
+  name?: string;
+  email: string;
+};
