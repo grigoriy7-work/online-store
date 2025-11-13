@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
-import { ProfileButton, LoginButton } from '../buttons';
+import { ProfileButton, LoginButton, ShoppingCartButton } from '../buttons';
 import { Space } from 'antd';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
@@ -14,7 +14,10 @@ export const Header: FC = () => {
         <NavLink to="/" className={styles['nav-link']}>
           <h1>Интернет-магазин</h1>
         </NavLink>
-        <Space>{isAuth ? <ProfileButton /> : <LoginButton />}</Space>
+        <Space>
+          {isAuth ? <ShoppingCartButton /> : null}
+          {isAuth ? <ProfileButton /> : <LoginButton />}
+        </Space>
       </div>
     </div>
   );

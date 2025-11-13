@@ -6,7 +6,9 @@ export const Layout: FC<{ children: ReactNode | ReactNode[] }> = ({ children }) 
   return (
     <>
       <Header />
-      <div className={styles.content}>{children}</div>
+      <div className={styles['content-cover']}>
+        <div className={styles.content}>{children}</div>
+      </div>
     </>
   );
 };
