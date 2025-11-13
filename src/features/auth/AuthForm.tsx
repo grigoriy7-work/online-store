@@ -65,7 +65,7 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
 
   const formik = useFormik({
     initialValues: {
-      email: 'admin@test.com',
+      email: 'seller@test.com',
       password: '123123',
     },
     validate,

@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { baseApi } from '../../app/api/baseApi';
+import type { AppDispatch } from './../../app/store';
 
 interface AuthState {
   token: string;
@@ -22,6 +24,11 @@ export const authSlice = createSlice({
     },
   },
 });
+
+export const logout = () => (dispatch: AppDispatch) => {
+  dispatch(clearToken());
+  dispatch(baseApi.util.resetApiState());
+};
 
 export const { setToken, clearToken } = authSlice.actions;
 export default authSlice.reducer;
