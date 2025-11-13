@@ -6,7 +6,7 @@ import type { RootState } from './../../../app/store';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import type { MenuProps } from 'antd';
-import { Dropdown, Space } from 'antd';
+import { Dropdown } from 'antd';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../auth/authSlice';
 import type { AppDispatch } from '../../../app/store';
@@ -41,10 +41,14 @@ export const ProfileButton: FC = () => {
   return (
     <Dropdown menu={{ items, onClick }}>
       <a onClick={(e) => e.preventDefault()}>
-        <Space direction="vertical">
-          <UserOutlined style={{ display: 'block', fontSize: 20 }} />
-          {profile?.name ?? profile?.email}
-        </Space>
+        <>
+          <UserOutlined
+            style={{ display: 'block', fontSize: 20, color: 'var(--text-color-light)' }}
+          />
+          <span style={{ color: 'var(--text-color-light)' }}>
+            {profile?.name ?? profile?.email}
+          </span>
+        </>
       </a>
     </Dropdown>
   );

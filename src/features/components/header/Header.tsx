@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
-import { ProfileButton } from '../buttons/ProfileButton';
+import { ProfileButton, LoginButton } from '../buttons';
+import { Space } from 'antd';
 
 export const Header: FC = () => {
   return (
@@ -9,9 +10,10 @@ export const Header: FC = () => {
       <NavLink to="/" className={styles['nav-link']}>
         <h1>Интернет-магазин</h1>
       </NavLink>
-      <div style={{ paddingRight: 10 }}>
+      <Space>
         <ProfileButton />
-      </div>
+        <LoginButton />
+      </Space>
     </div>
   );
 };
