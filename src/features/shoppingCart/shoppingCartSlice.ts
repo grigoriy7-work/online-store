@@ -1,25 +1,26 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { Product } from '../../app/api/types/typesProducts';
 
 interface ShoppingCartState {
-  productIdList: string[];
+  products: Product[];
 }
 
 const initialState: ShoppingCartState = {
-  productIdList: [],
+  products: [],
 };
 
 export const shoppingCatSlice = createSlice({
   name: 'shoppingCart',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<string>) => {
-      state.productIdList.push(action.payload);
+    add: (state, action: PayloadAction<Product>) => {
+      state.products.push(action.payload);
     },
-    remove: (state, action: PayloadAction<string>) => {
-      state.productIdList = state.productIdList.filter((id) => id !== action.payload);
+    remove: (state, action: PayloadAction<Product>) => {
+      state.products = state.products.filter((product) => product.id !== action.payload.id);
     },
     clear: (state) => {
-      state.productIdList = [];
+      state.products = [];
     },
   },
 });

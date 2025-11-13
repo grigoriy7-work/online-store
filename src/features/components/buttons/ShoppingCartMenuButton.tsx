@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
 
 export const ShoppingCartMenuButton: FC = () => {
-  const productIdList = useSelector((state: RootState) => state.shoppingCart.productIdList);
+  const products = useSelector((state: RootState) => state.shoppingCart.products);
+  const productIdList = products.map((product) => product.id);
   const countProducts = [...new Set(productIdList)].length;
 
   return (

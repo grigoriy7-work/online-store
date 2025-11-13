@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
 
 export const ShoppingCartList: FC = memo(() => {
-  const productIdList = useSelector((state: RootState) => state.shoppingCart.productIdList);
+  const products = useSelector((state: RootState) => state.shoppingCart.products);
 
   return (
     <List
-      header="Продукты в корзине"
+      header={<b>Продукты в корзине</b>}
       bordered
-      dataSource={productIdList}
-      renderItem={(productId) => <List.Item>{productId}</List.Item>}
+      dataSource={products}
+      renderItem={(product) => <List.Item>{product.name}</List.Item>}
     />
   );
 });
