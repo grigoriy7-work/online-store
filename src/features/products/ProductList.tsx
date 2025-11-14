@@ -5,7 +5,7 @@ import photo from './../../assets/images/product_tea.png';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../app/store';
-import { add } from '../shoppingCart/shoppingCartSlice';
+import { shoppingCartAdd } from '../shoppingCart/shoppingCartSlice';
 
 export interface ProductListProps {
   products: Product[];
@@ -19,7 +19,7 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
   const clickHandler = (e: MouseEvent, product: Product) => {
     e.stopPropagation();
     console.info('click', product.id);
-    dispatch(add(product));
+    dispatch(shoppingCartAdd(product));
   };
 
   return (
