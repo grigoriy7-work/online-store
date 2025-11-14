@@ -9,18 +9,21 @@ import {
   ShoppingCartPage,
   OrdersPage,
 } from './pages';
+import { ProtectedRoute } from './features/components/ProtectedRoute';
 
 function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<ProductsPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/signin" element={<SignInPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/shopping-cart" element={<ShoppingCartPage />} />
-        <Route path="/orders" element={<OrdersPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<ProductsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/shopping-cart" element={<ShoppingCartPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
+        </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </Layout>

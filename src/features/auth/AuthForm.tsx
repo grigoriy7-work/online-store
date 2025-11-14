@@ -4,6 +4,7 @@ import { Input, Space, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useSignUpMutation, useSignInMutation } from './authEndpoints';
 import type { ServerErrors } from '../../app/api/types/typesError';
+import { useNavigate } from 'react-router-dom';
 
 type User = {
   email: string;
@@ -18,6 +19,7 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
   const [signUp, { isError: isErrorSignUp, error: errorSignUp }] = useSignUpMutation();
   const [signIn, { isError: isErrorSignIn, error: errorSignIn }] = useSignInMutation();
   const [api, contextHolder] = notification.useNotification();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const serverError = errorSignUp as { status: number; data: ServerErrors };
@@ -79,6 +81,7 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
           await signUp({ ...values, commandId: import.meta.env.VITE_COMMANDID });
           break;
       }
+      navigate(-1);
     },
   });
 
