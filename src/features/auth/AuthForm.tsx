@@ -5,14 +5,19 @@ import { useFormik } from 'formik';
 import { useSignUpMutation, useSignInMutation } from './authEndpoints';
 import type { ServerErrors } from '../../app/api/types/typesError';
 import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../app/store';
 
 type User = {
   email: string;
   password: string;
 };
 
+type authType = 'signIn' | 'signUp';
+
 interface AuthFormProps {
-  type: 'signIn' | 'signUp';
+  type: authType;
 }
 
 export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
@@ -20,6 +25,9 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
   const [signIn, { isError: isErrorSignIn, error: errorSignIn }] = useSignInMutation();
   const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+
+  if (isAuth) navigate('/');
 
   useEffect(() => {
     const serverError = errorSignUp as { status: number; data: ServerErrors };
@@ -81,9 +89,12 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
           await signUp({ ...values, commandId: import.meta.env.VITE_COMMANDID });
           break;
       }
-      navigate(-1);
+      navigate('/');
     },
   });
+
+  const getTitle = (type: authType) => (type === 'signIn' ? 'войти' : 'зарегистрироваться');
+  const oppositeType = type === 'signIn' ? 'signUp' : 'signIn';
 
   return (
     <>
@@ -108,8 +119,13 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
           {formik.touched.password && formik.errors.password ? (
             <div>{formik.errors.password}</div>
           ) : null}
-
-          <Button htmlType="submit">Отправить</Button>
+          <Button block type="primary" htmlType="submit">
+            {getTitle(type)}
+          </Button>
+          <div>
+            или
+            <NavLink to={'/' + oppositeType}> {getTitle(oppositeType)}</NavLink>
+          </div>
         </Space>
       </form>
     </>

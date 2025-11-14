@@ -9,7 +9,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   token: localStorage.getItem('token') || '',
-  isAuth: localStorage.getItem('token') !== '',
+  isAuth: (localStorage.getItem('token') || '') !== '',
 };
 
 export const authSlice = createSlice({

@@ -1,5 +1,3 @@
-import type { ServerErrors } from './typesError';
-
 export type SignUpBody = {
   email: string;
   password: string;
@@ -14,11 +12,6 @@ export type SignInBody = {
 export type AuthResult = {
   token: string;
 };
-
-export interface ResultFetchAuth {
-  authResult?: AuthResult;
-  serverErrors?: ServerErrors;
-}
 
 export type Profile = {
   id: string;

@@ -18,7 +18,6 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
 
   const clickHandler = (e: MouseEvent, product: Product) => {
     e.stopPropagation();
-    console.info('click', product.id);
     dispatch(shoppingCartAdd(product));
   };
 

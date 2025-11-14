@@ -5,8 +5,8 @@ import type { RootState } from '../../app/store';
 
 export const ProtectedRoute: FC = () => {
   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
-  if (!isAuth) {
-    return <Navigate to="/signin" replace />;
+  if (isAuth) {
+    return <Outlet />;
   }
-  return <Outlet />;
+  return <Navigate to="/signin" replace />;
 };
