@@ -57,3 +57,16 @@ export type User = {
   name?: string;
   email: string;
 };
+
+export type Result<T> = {
+  data: T[];
+  pagination: {
+    pageSize: number;
+    pageNumber: number;
+    total: number;
+  };
+  sorting: {
+    type: 'ASC' | 'DESC';
+    field: 'id' | 'createdAt' | 'updatedAt' | 'name';
+  };
+};

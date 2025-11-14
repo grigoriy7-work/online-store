@@ -7,6 +7,7 @@ import {
   ProductsPage,
   CategoriesPage,
   ShoppingCartPage,
+  OrdersPage,
 } from './pages';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/shopping-cart" element={<ShoppingCartPage />} />
+        <Route path="/orders" element={<OrdersPage />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </Layout>
