@@ -2,7 +2,7 @@ import type { FC, MouseEvent } from 'react';
 import { List, Card } from 'antd';
 import type { Product } from '../../app/api/types/typesProducts';
 import photo from './../../assets/images/product_tea.png';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../app/store';
 import { shoppingCartAdd } from '../shoppingCart/shoppingCartSlice';
@@ -33,16 +33,22 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
               <img draggable={false} alt={`фото ${product.name}`} src={product.photo ?? photo} />
             }
             style={{ maxWidth: 300 }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Meta title={product.name} description={'цена: ' + product.price} />
-              <div style={{ alignSelf: 'end' }}>
-                <ShoppingCartOutlined
-                  style={{ fontSize: '1.8em', color: 'var(--color-primary)' }}
-                  onClick={(e) => clickHandler(e, product)}
+            actions={[
+              true && (
+                <EditOutlined
+                  key="edit"
+                  style={{ fontSize: '1.5em' }}
+                  onClick={() => console.info('click', product)}
                 />
-              </div>
-            </div>
+              ),
+              <ShoppingCartOutlined
+                style={{ fontSize: '1.6em' }}
+                onClick={(e) => clickHandler(e, product)}
+              />,
+            ].filter(Boolean)}
+          >
+            <Meta title={product.name} description={'цена: ' + product.price} />
+            <div style={{ alignSelf: 'end' }}></div>
           </Card>
         </List.Item>
       )}
