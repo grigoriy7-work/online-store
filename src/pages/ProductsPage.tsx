@@ -24,7 +24,7 @@ export const ProductsPage: FC = () => {
   return (
     <div className={styles.page}>
       {false && <ProductButtonAdd />}
-      <CategoryCardList />
+      <CategoryCardList readProducts={(categoryIds) => trigger({ categoryIds: categoryIds })} />
       <ProductList products={products} />
     </div>
   );

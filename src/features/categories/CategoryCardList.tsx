@@ -1,10 +1,10 @@
 import { type FC, useEffect } from 'react';
-import { List, Card, Checkbox } from 'antd';
+import { Card, Checkbox } from 'antd';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './../categories/categoryEndpoints';
 import type { Category } from '../../app/api/types/typesCategories';
-import type { CheckboxOptionType, GetProp } from 'antd';
+import type { GetProp } from 'antd';
 
 export interface CategoriyCardProps {
   category: Category;
@@ -14,17 +14,17 @@ export const CategoryCard: FC<CategoriyCardProps> = ({ category }) => {
   return <Card hoverable title={category.name}></Card>;
 };
 
-interface Option {
+/*interface Option {
   label: string;
   value: string;
   disabled?: boolean;
+}*/
+
+interface CategoryCardListProps {
+  readProducts: (categoryIds: string[]) => void;
 }
 
-const onChange: GetProp<typeof Checkbox.Group, 'onChange'> = (checkedValues) => {
-  console.log('checked = ', checkedValues);
-};
-
-export const CategoryCardList: FC = () => {
+export const CategoryCardList: FC<CategoryCardListProps> = ({ readProducts }) => {
   const token = useSelector((state: RootState) => state.auth.token);
   const [trigger, { data }] = useLazyGetCategoriesQuery();
   const categories = data?.data ?? [];
@@ -37,6 +37,10 @@ export const CategoryCardList: FC = () => {
   useEffect(() => {
     if (token) trigger({});
   }, [token]);
+
+  const onChange: GetProp<typeof Checkbox.Group, 'onChange'> = (checkedValues) => {
+    readProducts(checkedValues as string[]);
+  };
 
   return (
     <div
