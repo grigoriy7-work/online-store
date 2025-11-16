@@ -1,13 +1,13 @@
 import type { FC, MouseEvent } from 'react';
 import { useState } from 'react';
 import { List, Card } from 'antd';
-import type { Product, Params, ParamsWithId } from '../../app/api/types/typesProducts';
+import type { Product, ParamsWithId } from '../../app/api/types/typesProducts';
 import photo from './../../assets/images/min_noImage.jpg';
 import { ShoppingCartOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../app/store';
 import { shoppingCartAdd } from '../shoppingCart/shoppingCartSlice';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { ProductWindow } from './ProductWindow';
 
 export interface ProductListProps {

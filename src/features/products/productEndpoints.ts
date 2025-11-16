@@ -26,6 +26,7 @@ export const productEndpoints = baseApi.injectEndpoints({
           url: url,
         };
       },
+      providesTags: ['Products'],
     }),
     createProduct: builder.mutation<Product, Params>({
       query: (productData) => ({
@@ -33,6 +34,7 @@ export const productEndpoints = baseApi.injectEndpoints({
         url: 'products',
         body: productData,
       }),
+      invalidatesTags: ['Products'],
     }),
     updateProduct: builder.mutation<Product, ParamsWithId>({
       query: (productData) => ({
@@ -40,6 +42,7 @@ export const productEndpoints = baseApi.injectEndpoints({
         url: `products/${productData.id}`,
         body: productData,
       }),
+      invalidatesTags: ['Products'],
     }),
   }),
 });

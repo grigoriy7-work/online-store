@@ -8,8 +8,6 @@ import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './../categories/categoryEndpoints';
 import type { RcFile, UploadChangeParam, UploadFile } from 'antd/es/upload/interface';
 
-const { Dragger } = Upload;
-
 interface ProductFormProps {
   form: FormInstance<ParamsWithId>;
   productHandler: (values: ParamsWithId, file?: RcFile) => void;
@@ -28,6 +26,8 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form, productHandler })
   const onFinishHandler: FormProps<ParamsWithId>['onFinish'] = async (values) => {
     const firstFile = fileList?.[0]?.originFileObj;
     productHandler(values, firstFile);
+    setFileList([]);
+    form.resetFields();
   };
 
   const dataCategories =
@@ -74,16 +74,13 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form, productHandler })
       <Form.Item<Params> label="Описание" name="desc">
         <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
       </Form.Item>
-      <Form.Item<Params>
-        label="Фото"
-        rules={[{ required: true, message: 'Пожалуйста, выберите файл!' }]}
-      >
-        <Dragger
+      <Form.Item<Params> name="photo" label="Фото">
+        <Upload.Dragger
           beforeUpload={() => false}
           maxCount={1}
           fileList={fileList}
           onChange={handleChange}
-        ></Dragger>
+        ></Upload.Dragger>
       </Form.Item>
     </Form>
   );
