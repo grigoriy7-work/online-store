@@ -1,0 +1,48 @@
+name: Deploy React App to Pages
+
+on:
+  push:
+    branches:
+      - main # Укажите ветку, при пуше в которую будет происходить развертывание
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write # Разрешение на запись для развертывания Pages
+  id-token: write # Требуется для аутентификации
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Используйте нужную версию Node.js
+          cache: 'npm' # Используйте кэширование зависимостей для ускорения
+
+      - name: 📦 Install Dependencies
+        run: npm ci # или npm install
+
+      - name: 🔨 Build Project
+        run: npm run build # Эта команда должна создать статичные файлы (обычно в папке 'build' или 'dist')
+
+      - name: 📁 Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # 👈 Укажите путь к папке со статичными файлами после сборки (build, dist и т.п.)
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # Это действие выполняет фактическое развертывание артефакта

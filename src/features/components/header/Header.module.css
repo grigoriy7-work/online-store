@@ -1,0 +1,22 @@
+@import url('./../../../assets/styles/colors.css');
+
+.header {
+  height: 90px;  
+  background-color: var(--background-color-header);
+
+  display: flex;
+  justify-content: center;
+
+  .links {
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-color-light);
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: var(--text-color-ligh);
+  }
+}

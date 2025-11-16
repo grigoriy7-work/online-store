@@ -1,0 +1,6 @@
+@import url('./../../../assets/styles/colors.css');
+
+.link {
+    text-decoration: none;
+    color: var(--text-color-ligh);
+}
