@@ -76,6 +76,7 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
         isOpen={isModalProductOpen}
         closeFunc={() => setIsModalProductOpen(false)}
         selectedProduct={selectedProduct}
+        type="update"
       />
     </>
   );

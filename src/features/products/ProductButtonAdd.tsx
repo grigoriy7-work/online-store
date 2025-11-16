@@ -7,6 +7,7 @@ import { useUploadFileMutation } from './../../app/api/baseEndpoints';
 import type { UploadChangeParam, UploadFile } from 'antd/es/upload/interface';
 import type { ParamsWithId } from '../../app/api/types/typesProducts';
 import type { RcFile } from 'antd/es/upload/interface';
+import { ProductWindow } from './ProductWindow';
 
 export const ProductButtonAdd: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,17 +57,7 @@ export const ProductButtonAdd: FC = () => {
   return (
     <>
       <Button onClick={showModal}>Создать</Button>
-      <Modal
-        title="Создание продукта"
-        closable={{ 'aria-label': 'Custom Close Button' }}
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText="Создать"
-        cancelText="Отмена"
-      >
-        <ProductForm form={form} productHandler={productHandler} />
-      </Modal>
+      <ProductWindow isOpen={isModalOpen} closeFunc={() => setIsModalOpen(false)} type="create" />
     </>
   );
 };
