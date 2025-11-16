@@ -5,7 +5,6 @@ import { ProductList } from '../features/products/ProductList';
 import { useLazyGetProductsQuery } from './../features/products/productEndpoints';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../app/store';
-import { ProductButtonAdd } from '../features/products/ProductButtonAdd';
 import { CategoryCardList } from '../features/categories/CategoryCardList';
 
 export const ProductsPage: FC = () => {
@@ -23,9 +22,12 @@ export const ProductsPage: FC = () => {
 
   return (
     <div className={styles.page}>
-      {false && <ProductButtonAdd />}
-      <CategoryCardList readProducts={(categoryIds) => trigger({ categoryIds: categoryIds })} />
-      <ProductList products={products} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ marginRight: 15, width: 150 }}>
+          <CategoryCardList readProducts={(categoryIds) => trigger({ categoryIds: categoryIds })} />
+        </div>
+        <ProductList products={products} />
+      </div>
     </div>
   );
 };

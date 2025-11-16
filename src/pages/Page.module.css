@@ -2,7 +2,7 @@
 
 .page {
   background-color: var(--backgroung-color-content);
-  padding: 10px 50px 20px 50px;
+  padding: 10px 30px 20px 30px;
   border-radius: 10px;
   width: 90vw;
 }

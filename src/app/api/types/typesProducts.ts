@@ -9,6 +9,10 @@ export type Params = {
   categoryId: string;
 };
 
+export type ParamsWithId = Params & {
+  id: string;
+};
+
 export type Product = {
   id: string;
   name: string;

@@ -1,5 +1,11 @@
 import { baseApi } from '../../app/api/baseApi';
-import type { ProductResult, Product, Params, Filters } from '../../app/api/types/typesProducts';
+import type {
+  ProductResult,
+  Product,
+  Params,
+  ParamsWithId,
+  Filters,
+} from '../../app/api/types/typesProducts';
 
 export const productEndpoints = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -28,7 +34,15 @@ export const productEndpoints = baseApi.injectEndpoints({
         body: productData,
       }),
     }),
+    updateProduct: builder.mutation<Product, ParamsWithId>({
+      query: (productData) => ({
+        method: 'PATCH',
+        url: `products/${productData.id}`,
+        body: productData,
+      }),
+    }),
   }),
 });
 
-export const { useLazyGetProductsQuery, useCreateProductMutation } = productEndpoints;
+export const { useLazyGetProductsQuery, useCreateProductMutation, useUpdateProductMutation } =
+  productEndpoints;

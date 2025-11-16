@@ -2,25 +2,22 @@ import type { FC } from 'react';
 import { memo, useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Select, Upload } from 'antd';
 import type { FormInstance, FormProps } from 'antd';
-import type { Params } from '../../app/api/types/typesProducts';
+import type { Params, ParamsWithId } from '../../app/api/types/typesProducts';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './../categories/categoryEndpoints';
-import { useCreateProductMutation } from './productEndpoints';
-import { useUploadFileMutation } from './../../app/api/baseEndpoints';
-import type { UploadChangeParam, UploadFile } from 'antd/es/upload/interface';
+import type { RcFile, UploadChangeParam, UploadFile } from 'antd/es/upload/interface';
 
 const { Dragger } = Upload;
 
 interface ProductFormProps {
-  form: FormInstance<any>;
+  form: FormInstance<ParamsWithId>;
+  productHandler: (values: ParamsWithId, file?: RcFile) => void;
 }
 
-export const ProductForm: FC<ProductFormProps> = memo(({ form }) => {
+export const ProductForm: FC<ProductFormProps> = memo(({ form, productHandler }) => {
   const token = useSelector((state: RootState) => state.auth.token);
   const [trigger, { data: categories }] = useLazyGetCategoriesQuery();
-  const [createProduct] = useCreateProductMutation();
-  const [uploadFile] = useUploadFileMutation();
   const [fileList, setFileList] = useState(Array<UploadFile>);
 
   const handleChange = (info: UploadChangeParam<UploadFile<any>>) => {
@@ -28,28 +25,9 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form }) => {
     setFileList(newFileList);
   };
 
-  const onFinishHandler: FormProps<Params>['onFinish'] = async (values) => {
-    console.info('values', values);
-
-    /*const firstFile = fileList?.[0]?.originFileObj;
-    if (!firstFile) return;
-    const formData = new FormData();
-    formData.append('file', firstFile);
-    
-    try {
-      const responseUploadFile = await uploadFile(formData).unwrap();
-      if (responseUploadFile.url) {
-        await createProduct({ ...values, photo: responseUploadFile.url }).unwrap();
-      }
-    } catch (error) {
-      console.error('error create product', error);
-    }*/
-
-    try {
-      await createProduct(values).unwrap();
-    } catch (error) {
-      console.error('error create product', error);
-    }
+  const onFinishHandler: FormProps<ParamsWithId>['onFinish'] = async (values) => {
+    const firstFile = fileList?.[0]?.originFileObj;
+    productHandler(values, firstFile);
   };
 
   const dataCategories =
@@ -61,8 +39,6 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form }) => {
   useEffect(() => {
     if (token) trigger({});
   }, [token]);
-
-  const { TextArea } = Input;
 
   return (
     <Form
@@ -96,7 +72,7 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form }) => {
         <InputNumber min={0} />
       </Form.Item>
       <Form.Item<Params> label="Описание" name="desc">
-        <TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
+        <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
       </Form.Item>
       <Form.Item<Params>
         label="Фото"

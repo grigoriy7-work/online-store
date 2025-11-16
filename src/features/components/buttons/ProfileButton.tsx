@@ -4,7 +4,7 @@ import { useLazyGetProfileQuery } from './../../profile/profileEndpoints';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../../app/store';
 import { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import type { MenuProps } from 'antd';
 import { Dropdown } from 'antd';
 import { useDispatch } from 'react-redux';
@@ -15,6 +15,7 @@ export const ProfileButton: FC = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const [trigger, { data: profile }] = useLazyGetProfileQuery();
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) trigger();
@@ -26,6 +27,14 @@ export const ProfileButton: FC = () => {
       label: <NavLink to="/profile">Профиль</NavLink>,
     },
     {
+      key: 'add-product',
+      label: 'Добавить товар',
+    },
+    {
+      key: 'categories',
+      label: 'Категории',
+    },
+    {
       key: 'logout',
       label: 'Выйти',
       danger: true,
@@ -33,11 +42,15 @@ export const ProfileButton: FC = () => {
   ];
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
-    console.info(`Click on item ${key}`);
+    if (key === 'categories') {
+      navigate('/categories');
+    }
+
     if (key === 'logout') {
       dispatch(logout());
     }
   };
+
   return (
     <Dropdown menu={{ items, onClick }}>
       <a onClick={(e) => e.preventDefault()}>

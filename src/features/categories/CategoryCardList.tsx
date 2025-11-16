@@ -1,10 +1,10 @@
 import { type FC, useEffect } from 'react';
-import { Card, Checkbox } from 'antd';
+import { Card, Checkbox, type GetProp, Space } from 'antd';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './../categories/categoryEndpoints';
 import type { Category } from '../../app/api/types/typesCategories';
-import type { GetProp } from 'antd';
+import { ProductButtonAdd } from './../products/ProductButtonAdd';
 
 export interface CategoriyCardProps {
   category: Category;
@@ -52,6 +52,8 @@ export const CategoryCardList: FC<CategoryCardListProps> = ({ readProducts }) =>
       }}
     >
       <Checkbox.Group options={categoriesOptions} onChange={onChange} />
+
+      <Space>{true && <ProductButtonAdd />}</Space>
     </div>
   );
 };

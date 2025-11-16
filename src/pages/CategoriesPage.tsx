@@ -24,7 +24,9 @@ export const CategoriesPage: FC = () => {
   return (
     <div className={styles.page}>
       <h2>Категории</h2>
-      <Button onClick={showModal}>Создать</Button>
+      <div style={{ paddingBottom: 15 }}>
+        <Button onClick={showModal}>Создать</Button>
+      </div>
 
       <CategoryList />
       <Modal
