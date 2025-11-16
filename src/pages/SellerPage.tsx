@@ -3,15 +3,15 @@ import styles from './Page.module.css';
 import { Button, Modal, Form } from 'antd';
 import { CategoryForm } from './../features/categories/CategoryForm';
 import { CategoryList } from './../features/categories/CategoryList';
-import { useSearchParams } from 'react-router-dom';
+//import { useSearchParams } from 'react-router-dom';
 
 export const SellerPage: FC = () => {
   const [isModalCategoryOpen, setIsModalCategoryOpen] = useState(false);
   const [formCategory] = Form.useForm();
-  const [searchParams, setSearchParams] = useSearchParams();
+  //const [searchParams, setSearchParams] = useSearchParams();
 
-  const productId = searchParams.get('productId');
-  console.info('productId', productId);
+  //const productId = searchParams.get('productId');
+  //console.info('productId', productId);
 
   const showModalCategory = () => {
     setIsModalCategoryOpen(true);
