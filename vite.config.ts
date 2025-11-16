@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-const repoName = 'online-store';
+const repoName = 'https://github.com/grigoriy7-work/online-store';
 
 // https://vite.dev/config/
 export default defineConfig({
