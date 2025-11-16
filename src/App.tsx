@@ -20,7 +20,6 @@ function App() {
         <Route path="/signin" element={<SignInPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<ProductsPage />} />
-          <Route path="/online-store" element={<ProductsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/shopping-cart" element={<ShoppingCartPage />} />
