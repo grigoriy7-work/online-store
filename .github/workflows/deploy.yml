@@ -34,7 +34,7 @@ jobs:
       - name: 📁 Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './build' # 👈 Укажите путь к папке со статичными файлами после сборки (build, dist и т.п.)
+          path: './dist' # 👈 Укажите путь к папке со статичными файлами после сборки (build, dist и т.п.)
 
   deploy:
     needs: build
