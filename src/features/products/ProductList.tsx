@@ -51,7 +51,6 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
               cover={
                 <img draggable={false} alt={`фото ${product.name}`} src={product.photo ?? photo} />
               }
-              style={{ maxWidth: 300 }}
               actions={[
                 true && (
                   <EditOutlined
