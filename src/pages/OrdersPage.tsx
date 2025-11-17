@@ -12,7 +12,7 @@ export const OrdersPage: FC = () => {
   const orders = data?.data ?? [];
 
   useEffect(() => {
-    if (token) trigger({ pagination: { pageNumber: 1, pageSize: 2 } });
+    if (token) trigger({ sorting: { field: 'createdAt', type: 'DESC' } });
   }, [token]);
 
   return (
