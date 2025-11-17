@@ -1,21 +1,91 @@
-import type { FC } from 'react';
-import { Card } from 'antd';
-import type { Order } from '../../app/api/types/typesOrders';
+import { type FC, useCallback, memo } from 'react';
+import { Card, Typography, Space, Button } from 'antd';
+import { type Order, OrderStatus } from '../../app/types/typesOrders';
+import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
+import { useUpdateOrderMutation } from './orderEndpoints';
+import { getNextStatus, getPreviousStatus, getStatusName } from './orderStatus';
 
 export interface OrderCardProps {
   order: Order;
 }
 
-export const OrderCard: FC<OrderCardProps> = ({ order }) => {
+type NewStatusType = 'next' | 'previous';
+
+export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
+  const [updateOrder] = useUpdateOrderMutation();
+
   const sumPrice = order.products.reduce(
     (acc, orderProduct) => acc + orderProduct.product.price * orderProduct.quantity,
     0,
   );
 
+  const newStatusHandler = useCallback(async (order: Order, newStatusType: NewStatusType) => {
+    const newStatus =
+      newStatusType == 'next' ? getNextStatus(order.status) : getPreviousStatus(order.status);
+    if (!newStatus) return;
+
+    try {
+      await updateOrder({ id: order.id, status: newStatus.type });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  const setStatue = useCallback(async (orderId: string, newStatus: OrderStatus) => {
+    try {
+      await updateOrder({ id: orderId, status: newStatus });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   return (
-    <Card title={'Сумма заказа: ' + sumPrice} key={order.id} style={{ width: '100vw' }}>
+    <Card
+      title={
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Space>
+            <Typography.Text>Сумма заказа: {sumPrice}</Typography.Text>
+            <Typography.Text type="success">Статус: {getStatusName(order.status)}</Typography.Text>
+          </Space>
+          <Space>
+            <Button shape="round">
+              <LeftCircleOutlined
+                style={{ fontSize: '1.2em' }}
+                onClick={() => newStatusHandler(order, 'previous')}
+              />
+            </Button>
+            <Button shape="round">
+              <RightCircleOutlined
+                style={{ fontSize: '1.2em' }}
+                onClick={() => newStatusHandler(order, 'next')}
+              />
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                setStatue(order.id, OrderStatus.ReturnRequested);
+              }}
+            >
+              запрос на возвра
+            </Button>
+            <Button
+              variant="outlined"
+              color="danger"
+              onClick={() => {
+                setStatue(order.id, OrderStatus.OrderCancelled);
+              }}
+            >
+              заказ отменён
+            </Button>
+          </Space>
+        </div>
+      }
+      key={order.id}
+      style={{ width: '100vw' }}
+    >
       {order.products.map((orderProduct) => (
-        <Card.Grid key={orderProduct._id}>
+        <Card.Grid key={orderProduct._id} hoverable={false}>
           <Card.Meta
             title={orderProduct.product.name}
             description={'Цена: ' + orderProduct.product.price}
@@ -24,4 +94,4 @@ export const OrderCard: FC<OrderCardProps> = ({ order }) => {
       ))}
     </Card>
   );
-};
+});

@@ -6,13 +6,9 @@ import { ProductWindow } from './ProductWindow';
 export const ProductButtonAdd: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
   return (
     <>
-      <Button onClick={showModal}>Создать</Button>
+      <Button onClick={() => setIsModalOpen(true)}>Создать товар</Button>
       <ProductWindow isOpen={isModalOpen} closeFunc={() => setIsModalOpen(false)} type="create" />
     </>
   );

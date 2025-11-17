@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 import styles from './Page.module.css';
 import { ShoppingCartList } from '../features/shoppingCart/ShoppingCartList';
-import { Button, Space } from 'antd';
+import { Button, Space, Typography } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from './../app/store';
 import { useCreateOrderMutation } from '../features/orders/orderEndpoints';
-import type { Params } from '../app/api/types/typesOrders';
+import type { Params } from '../app/types/typesOrders';
 import { shoppingCartClear } from '../features/shoppingCart/shoppingCartSlice';
 
 export const ShoppingCartPage: FC = () => {
@@ -39,7 +39,7 @@ export const ShoppingCartPage: FC = () => {
           }}
         >
           <Space direction="vertical">
-            <span>{`Сумма заказа: ${sumPrice}`}</span>
+            <Typography.Text type="danger">{`Сумма заказа: ${sumPrice}`}</Typography.Text>
             <Button onClick={clickHandler} disabled={isLoading}>
               Заказать
             </Button>

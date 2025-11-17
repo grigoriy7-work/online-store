@@ -1,5 +1,5 @@
 import { baseApi } from '../../app/api/baseApi';
-import type { Profile, UpdateProfileBody } from '../../app/api/types/typesProfile';
+import type { Profile, UpdateProfileBody } from '../../app/types/typesProfile';
 import { setProfile } from './profileSlice';
 
 export const profileApi = baseApi.injectEndpoints({
@@ -8,6 +8,7 @@ export const profileApi = baseApi.injectEndpoints({
       query: () => ({
         url: 'profile',
       }),
+      providesTags: ['Profile'],
     }),
     updateProfile: builder.mutation<Profile, UpdateProfileBody>({
       query: (profileData) => ({
@@ -15,6 +16,7 @@ export const profileApi = baseApi.injectEndpoints({
         url: 'profile',
         body: profileData,
       }),
+      invalidatesTags: ['Profile'],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const result = await queryFulfilled;
         dispatch(setProfile(result.data));

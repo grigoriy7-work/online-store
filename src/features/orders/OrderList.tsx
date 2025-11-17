@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { List } from 'antd';
-import type { Order } from '../../app/api/types/typesOrders';
+import type { Order } from '../../app/types/typesOrders';
 import { OrderCard } from './OrderCard';
 
 export interface OrderListProps {

@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { useLazyGetProfileQuery } from './../../profile/profileEndpoints';
 import { useSelector } from 'react-redux';
@@ -10,12 +10,14 @@ import { Dropdown } from 'antd';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../auth/authSlice';
 import type { AppDispatch } from '../../../app/store';
+import { ProductWindow } from '../../products/ProductWindow';
 
 export const ProfileButton: FC = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const [trigger, { data: profile }] = useLazyGetProfileQuery();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const [isModalProductOpen, setIsModalProductOpen] = useState(false);
 
   useEffect(() => {
     if (token) trigger();
@@ -28,7 +30,7 @@ export const ProfileButton: FC = () => {
     },
     {
       key: 'add-product',
-      label: 'Добавить товар',
+      label: 'Создать товар',
     },
     {
       key: 'categories',
@@ -46,23 +48,34 @@ export const ProfileButton: FC = () => {
       navigate('/categories');
     }
 
+    if (key === 'add-product') {
+      setIsModalProductOpen(true);
+    }
+
     if (key === 'logout') {
       dispatch(logout());
     }
   };
 
   return (
-    <Dropdown menu={{ items, onClick }}>
-      <a onClick={(e) => e.preventDefault()}>
-        <>
-          <UserOutlined
-            style={{ display: 'block', fontSize: 20, color: 'var(--text-color-light)' }}
-          />
-          <span style={{ color: 'var(--text-color-light)' }}>
-            {profile?.name ?? profile?.email}
-          </span>
-        </>
-      </a>
-    </Dropdown>
+    <>
+      <Dropdown menu={{ items, onClick }}>
+        <a onClick={(e) => e.preventDefault()}>
+          <>
+            <UserOutlined
+              style={{ display: 'block', fontSize: 20, color: 'var(--text-color-light)' }}
+            />
+            <span style={{ color: 'var(--text-color-light)' }}>
+              {profile?.name ?? profile?.email}
+            </span>
+          </>
+        </a>
+      </Dropdown>
+      <ProductWindow
+        isOpen={isModalProductOpen}
+        closeFunc={() => setIsModalProductOpen(false)}
+        type="create"
+      />
+    </>
   );
 };

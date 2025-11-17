@@ -1,5 +1,5 @@
 import { baseApi } from '../../app/api/baseApi';
-import type { SignUpBody, SignInBody, AuthResult } from '../../app/api/types/types';
+import type { SignUpBody, SignInBody, AuthResult } from '../../app/types/types';
 import { setToken } from './authSlice';
 
 export const authApi = baseApi.injectEndpoints({

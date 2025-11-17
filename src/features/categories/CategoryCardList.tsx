@@ -3,7 +3,7 @@ import { Card, Checkbox, type GetProp, Space } from 'antd';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './../categories/categoryEndpoints';
-import type { Category } from '../../app/api/types/typesCategories';
+import type { Category } from '../../app/types/typesCategories';
 import { ProductButtonAdd } from './../products/ProductButtonAdd';
 
 export interface CategoriyCardProps {
@@ -13,12 +13,6 @@ export interface CategoriyCardProps {
 export const CategoryCard: FC<CategoriyCardProps> = ({ category }) => {
   return <Card hoverable title={category.name}></Card>;
 };
-
-/*interface Option {
-  label: string;
-  value: string;
-  disabled?: boolean;
-}*/
 
 interface CategoryCardListProps {
   readProducts: (categoryIds: string[]) => void;
@@ -49,11 +43,14 @@ export const CategoryCardList: FC<CategoryCardListProps> = ({ readProducts }) =>
         border: '1px solid var(--background-color-header)',
         borderRadius: 10,
         marginBottom: 15,
+        width: 150,
       }}
     >
-      <Checkbox.Group options={categoriesOptions} onChange={onChange} />
+      <Space direction="vertical">
+        <Checkbox.Group options={categoriesOptions} onChange={onChange} />
 
-      <Space>{true && <ProductButtonAdd />}</Space>
+        {true && <ProductButtonAdd />}
+      </Space>
     </div>
   );
 };

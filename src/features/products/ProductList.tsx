@@ -1,24 +1,20 @@
 import type { FC, MouseEvent } from 'react';
 import { useState } from 'react';
-import { List, Card } from 'antd';
-import type { Product, ParamsWithId } from '../../app/api/types/typesProducts';
+import { List, Card, Image, Typography, Space } from 'antd';
+import type { Product, ParamsWithId } from '../../app/types/typesProducts';
 import photo from './../../assets/images/min_noImage.jpg';
 import { ShoppingCartOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../app/store';
 import { shoppingCartAdd } from '../shoppingCart/shoppingCartSlice';
-//import { useNavigate } from 'react-router-dom';
 import { ProductWindow } from './ProductWindow';
 
 export interface ProductListProps {
   products: Product[];
 }
 
-const { Meta } = Card;
-
 export const ProductList: FC<ProductListProps> = ({ products }) => {
   const dispatch = useDispatch<AppDispatch>();
-  //const navigate = useNavigate();
   const [isModalProductOpen, setIsModalProductOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ParamsWithId | undefined>();
 
@@ -28,7 +24,6 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
   };
 
   const editProductHandler = (product: Product) => {
-    //navigate(`/seller?productId=${product.id}`)
     const params: ParamsWithId = {
       ...product,
       categoryId: product.category.id,
@@ -49,7 +44,11 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
             <Card
               hoverable
               cover={
-                <img draggable={false} alt={`фото ${product.name}`} src={product.photo ?? photo} />
+                <Image
+                  alt={`фото ${product?.name}`}
+                  src={product.photo == undefined ? photo : product.photo.replace('http', 'https')}
+                  preview={product.photo !== undefined}
+                />
               }
               actions={[
                 true && (
@@ -65,7 +64,17 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
                 />,
               ].filter(Boolean)}
             >
-              <Meta title={product.name} description={'цена: ' + product.price} />
+              <Card.Meta
+                title={product.name}
+                description={
+                  <Space direction="vertical">
+                    <Typography.Text>цена: {product.price}</Typography.Text>
+                    <Typography.Text ellipsis italic>
+                      {product.desc}
+                    </Typography.Text>
+                  </Space>
+                }
+              />
               <div style={{ alignSelf: 'end' }}></div>
             </Card>
           </List.Item>
