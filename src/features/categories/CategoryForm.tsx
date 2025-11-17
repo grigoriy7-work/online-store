@@ -2,21 +2,17 @@ import type { FC } from 'react';
 import { memo } from 'react';
 import { Form, Input } from 'antd';
 import type { FormInstance, FormProps } from 'antd';
-import { useCreateCategoryMutation } from './categoryEndpoints';
-
-type FieldType = {
-  name: string;
-  photo?: string;
-};
+import type { ParamsWithId } from '../../app/api/types/typesCategories';
 
 interface CategoryFormProps {
-  form: FormInstance<any>;
+  form: FormInstance<ParamsWithId>;
+  categoryHandler: (values: ParamsWithId) => void;
 }
 
-export const CategoryForm: FC<CategoryFormProps> = memo(({ form }) => {
-  const [createCategory] = useCreateCategoryMutation();
-  const onFinishHandler: FormProps<FieldType>['onFinish'] = async (values) => {
-    if (values.name) await createCategory({ name: values.name });
+export const CategoryForm: FC<CategoryFormProps> = memo(({ form, categoryHandler }) => {
+  const onFinishHandler: FormProps<ParamsWithId>['onFinish'] = async (values) => {
+    console.info('values', values);
+    categoryHandler(values);
   };
 
   return (
@@ -28,10 +24,11 @@ export const CategoryForm: FC<CategoryFormProps> = memo(({ form }) => {
       onFinish={onFinishHandler}
       autoComplete="off"
     >
-      <Form.Item<FieldType> label="Наименование" name="name">
-        <Input />
-      </Form.Item>
-      <Form.Item<FieldType> label="Фото" name="photo">
+      <Form.Item<ParamsWithId>
+        label="Наименование"
+        name="name"
+        rules={[{ required: true, message: 'Введите наименование!' }]}
+      >
         <Input />
       </Form.Item>
     </Form>

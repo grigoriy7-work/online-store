@@ -3,6 +3,10 @@ export type Params = {
   photo?: string;
 };
 
+export type ParamsWithId = Params & {
+  id: string;
+};
+
 export type Category = {
   id: string;
   name: string;

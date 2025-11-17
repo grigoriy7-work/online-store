@@ -14,8 +14,6 @@ export interface ProductListProps {
   products: Product[];
 }
 
-const { Meta } = Card;
-
 export const ProductList: FC<ProductListProps> = ({ products }) => {
   const dispatch = useDispatch<AppDispatch>();
   //const navigate = useNavigate();
@@ -52,6 +50,7 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
                 <Image
                   alt={`фото ${product?.name}`}
                   src={product.photo == undefined ? photo : product.photo.replace('http', 'https')}
+                  preview={product.photo !== undefined}
                 />
               }
               actions={[
@@ -68,7 +67,7 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
                 />,
               ].filter(Boolean)}
             >
-              <Meta title={product.name} description={'цена: ' + product.price} />
+              <Card.Meta title={product.name} description={'цена: ' + product.price} />
               <div style={{ alignSelf: 'end' }}></div>
             </Card>
           </List.Item>
