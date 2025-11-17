@@ -1,6 +1,6 @@
 import type { FC, MouseEvent } from 'react';
 import { useState } from 'react';
-import { List, Card, Image } from 'antd';
+import { List, Card, Image, Typography, Space } from 'antd';
 import type { Product, ParamsWithId } from '../../app/types/typesProducts';
 import photo from './../../assets/images/min_noImage.jpg';
 import { ShoppingCartOutlined, EditOutlined } from '@ant-design/icons';
@@ -64,7 +64,17 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
                 />,
               ].filter(Boolean)}
             >
-              <Card.Meta title={product.name} description={'цена: ' + product.price} />
+              <Card.Meta
+                title={product.name}
+                description={
+                  <Space direction="vertical">
+                    <Typography.Text>цена: {product.price}</Typography.Text>
+                    <Typography.Text ellipsis italic>
+                      {product.desc}
+                    </Typography.Text>
+                  </Space>
+                }
+              />
               <div style={{ alignSelf: 'end' }}></div>
             </Card>
           </List.Item>
