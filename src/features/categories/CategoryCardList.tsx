@@ -14,12 +14,6 @@ export const CategoryCard: FC<CategoriyCardProps> = ({ category }) => {
   return <Card hoverable title={category.name}></Card>;
 };
 
-/*interface Option {
-  label: string;
-  value: string;
-  disabled?: boolean;
-}*/
-
 interface CategoryCardListProps {
   readProducts: (categoryIds: string[]) => void;
 }
