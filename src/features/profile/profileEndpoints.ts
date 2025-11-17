@@ -8,6 +8,7 @@ export const profileApi = baseApi.injectEndpoints({
       query: () => ({
         url: 'profile',
       }),
+      providesTags: ['Profile'],
     }),
     updateProfile: builder.mutation<Profile, UpdateProfileBody>({
       query: (profileData) => ({
@@ -15,6 +16,7 @@ export const profileApi = baseApi.injectEndpoints({
         url: 'profile',
         body: profileData,
       }),
+      invalidatesTags: ['Profile'],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const result = await queryFulfilled;
         dispatch(setProfile(result.data));
