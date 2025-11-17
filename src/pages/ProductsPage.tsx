@@ -31,6 +31,7 @@ export const ProductsPage: FC = () => {
               readProducts={(categoryIds) => {
                 trigger({
                   categoryIds: categoryIds,
+                  sorting: { field: 'createdAt', type: 'DESC' },
                   pagination: { pageSize: pageSize, pageNumber: pageNumber },
                 });
               }}
