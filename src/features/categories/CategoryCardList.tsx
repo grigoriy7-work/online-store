@@ -3,7 +3,7 @@ import { Card, Checkbox, type GetProp, Space } from 'antd';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './../categories/categoryEndpoints';
-import type { Category } from '../../app/api/types/typesCategories';
+import type { Category } from '../../app/types/typesCategories';
 import { ProductButtonAdd } from './../products/ProductButtonAdd';
 
 export interface CategoriyCardProps {

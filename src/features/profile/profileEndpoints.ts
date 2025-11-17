@@ -1,5 +1,5 @@
 import { baseApi } from '../../app/api/baseApi';
-import type { Profile, UpdateProfileBody } from '../../app/api/types/typesProfile';
+import type { Profile, UpdateProfileBody } from '../../app/types/typesProfile';
 import { setProfile } from './profileSlice';
 
 export const profileApi = baseApi.injectEndpoints({

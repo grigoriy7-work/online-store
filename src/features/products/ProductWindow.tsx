@@ -2,7 +2,7 @@ import { useEffect, type FC } from 'react';
 import { Modal, Form } from 'antd';
 import { ProductForm } from './ProductForm';
 import { type RcFile } from 'antd/es/upload';
-import type { ParamsWithId } from '../../app/api/types/typesProducts';
+import type { ParamsWithId } from '../../app/types/typesProducts';
 import { useUploadFileMutation } from './../../app/api/baseEndpoints';
 import { useCreateProductMutation, useUpdateProductMutation } from './productEndpoints';
 

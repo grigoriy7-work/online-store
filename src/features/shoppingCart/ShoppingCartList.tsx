@@ -2,7 +2,7 @@ import { type FC, memo } from 'react';
 import { List, Typography, Space } from 'antd';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
-import type { Product } from '../../app/api/types/typesProducts';
+import type { Product } from '../../app/types/typesProducts';
 import type { ProductList } from '../products/ProductList';
 
 interface ProductList {

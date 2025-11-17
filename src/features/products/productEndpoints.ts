@@ -5,7 +5,7 @@ import type {
   Params,
   ParamsWithId,
   Filters,
-} from '../../app/api/types/typesProducts';
+} from '../../app/types/typesProducts';
 
 export const productEndpoints = baseApi.injectEndpoints({
   endpoints: (builder) => ({

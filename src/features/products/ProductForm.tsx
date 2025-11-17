@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { memo, useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Select, Upload } from 'antd';
 import type { FormInstance, FormProps } from 'antd';
-import type { Params, ParamsWithId } from '../../app/api/types/typesProducts';
+import type { Params, ParamsWithId } from '../../app/types/typesProducts';
 import { useSelector } from 'react-redux';
 import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './../categories/categoryEndpoints';

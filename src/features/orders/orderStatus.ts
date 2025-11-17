@@ -1,4 +1,4 @@
-import { OrderStatus } from '../../app/api/types/typesOrders';
+import { OrderStatus } from '../../app/types/typesOrders';
 
 export interface StatusValue {
   type: OrderStatus;

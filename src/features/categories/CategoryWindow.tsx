@@ -1,7 +1,7 @@
 import { type FC, useEffect } from 'react';
 import { Modal, Form } from 'antd';
 import { CategoryForm } from './CategoryForm';
-import type { ParamsWithId } from '../../app/api/types/typesCategories';
+import type { ParamsWithId } from '../../app/types/typesCategories';
 import { useCreateCategoryMutation, useUpdateCategoryMutation } from './categoryEndpoints';
 
 export interface CategoryWindowProps {

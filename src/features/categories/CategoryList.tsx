@@ -6,7 +6,7 @@ import type { RootState } from './../../app/store';
 import { useLazyGetCategoriesQuery } from './categoryEndpoints';
 import { EditOutlined } from '@ant-design/icons';
 import { CategoryWindow } from './CategoryWindow';
-import type { Category, ParamsWithId } from '../../app/api/types/typesCategories';
+import type { Category, ParamsWithId } from '../../app/types/typesCategories';
 
 export const CategoryList: FC = memo(() => {
   const token = useSelector((state: RootState) => state.auth.token);

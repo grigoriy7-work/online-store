@@ -1,7 +1,7 @@
 import type { FC, MouseEvent } from 'react';
 import { useState } from 'react';
 import { List, Card, Image } from 'antd';
-import type { Product, ParamsWithId } from '../../app/api/types/typesProducts';
+import type { Product, ParamsWithId } from '../../app/types/typesProducts';
 import photo from './../../assets/images/min_noImage.jpg';
 import { ShoppingCartOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';

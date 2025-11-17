@@ -1,7 +1,7 @@
 import { baseApi } from '../../app/api/baseApi';
-import type { Order, Params, ParamsUpdateWithId } from '../../app/api/types/typesOrders';
-import type { Result } from '../../app/api/types/types';
-import type { Filters } from '../../app/api/types/typesOrders';
+import type { Order, Params, ParamsUpdateWithId } from '../../app/types/typesOrders';
+import type { Result } from '../../app/types/types';
+import type { Filters } from '../../app/types/typesOrders';
 
 export const orderEndpoints = baseApi.injectEndpoints({
   endpoints: (builder) => ({

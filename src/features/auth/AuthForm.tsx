@@ -3,7 +3,7 @@ import { memo, useEffect } from 'react';
 import { Input, Space, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useSignUpMutation, useSignInMutation } from './authEndpoints';
-import type { ServerErrors } from '../../app/api/types/typesError';
+import type { ServerErrors } from '../../app/types/typesError';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';

@@ -1,6 +1,6 @@
 import { type FC, useCallback, memo } from 'react';
 import { Card, Typography, Space, Button } from 'antd';
-import { type Order } from '../../app/api/types/typesOrders';
+import { type Order } from '../../app/types/typesOrders';
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import { useUpdateOrderMutation } from './orderEndpoints';
 import { getNextStatus, getPreviousStatus, getStatusName } from './orderStatus';

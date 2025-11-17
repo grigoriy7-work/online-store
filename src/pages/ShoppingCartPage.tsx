@@ -5,7 +5,7 @@ import { Button, Space, Typography } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from './../app/store';
 import { useCreateOrderMutation } from '../features/orders/orderEndpoints';
-import type { Params } from '../app/api/types/typesOrders';
+import type { Params } from '../app/types/typesOrders';
 import { shoppingCartClear } from '../features/shoppingCart/shoppingCartSlice';
 
 export const ShoppingCartPage: FC = () => {

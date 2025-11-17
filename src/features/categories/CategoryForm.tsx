@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { memo } from 'react';
 import { Form, Input } from 'antd';
 import type { FormInstance, FormProps } from 'antd';
-import type { ParamsWithId } from '../../app/api/types/typesCategories';
+import type { ParamsWithId } from '../../app/types/typesCategories';
 
 interface CategoryFormProps {
   form: FormInstance<ParamsWithId>;
