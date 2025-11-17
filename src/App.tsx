@@ -8,7 +8,6 @@ import {
   CategoriesPage,
   ShoppingCartPage,
   OrdersPage,
-  SellerPage,
 } from './pages';
 import { ProtectedRoute } from './features/components/ProtectedRoute';
 
@@ -24,7 +23,6 @@ function App() {
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/shopping-cart" element={<ShoppingCartPage />} />
           <Route path="/orders" element={<OrdersPage />} />
-          <Route path="/seller" element={<SellerPage />} />
         </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
