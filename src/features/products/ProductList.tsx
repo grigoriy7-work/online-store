@@ -49,7 +49,11 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
             <Card
               hoverable
               cover={
-                <img draggable={false} alt={`фото ${product.name}`} src={product.photo ?? photo} />
+                <img
+                  draggable={false}
+                  alt={`фото ${product?.name}`}
+                  src={product.photo == undefined ? photo : product.photo.replace('http', 'https')}
+                />
               }
               actions={[
                 true && (
