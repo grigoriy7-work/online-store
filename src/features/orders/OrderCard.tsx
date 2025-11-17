@@ -1,6 +1,6 @@
 import { type FC, useCallback, memo } from 'react';
 import { Card, Typography, Space, Button } from 'antd';
-import { type Order } from '../../app/types/typesOrders';
+import { type Order, OrderStatus } from '../../app/types/typesOrders';
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import { useUpdateOrderMutation } from './orderEndpoints';
 import { getNextStatus, getPreviousStatus, getStatusName } from './orderStatus';
@@ -31,6 +31,14 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
     }
   }, []);
 
+  const setStatue = useCallback(async (orderId: string, newStatus: OrderStatus) => {
+    try {
+      await updateOrder({ id: orderId, status: newStatus });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   return (
     <Card
       title={
@@ -51,6 +59,24 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
                 style={{ fontSize: '1.2em' }}
                 onClick={() => newStatusHandler(order, 'next')}
               />
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                setStatue(order.id, OrderStatus.ReturnRequested);
+              }}
+            >
+              запрос на возвра
+            </Button>
+            <Button
+              variant="outlined"
+              color="danger"
+              onClick={() => {
+                setStatue(order.id, OrderStatus.OrderCancelled);
+              }}
+            >
+              заказ отменён
             </Button>
           </Space>
         </div>

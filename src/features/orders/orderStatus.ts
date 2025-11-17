@@ -13,9 +13,6 @@ export const statusValues: StatusValue[] = [
   { type: OrderStatus.WaitingForDelivery, name: 'ожидание доставки', code: 4 },
   { type: OrderStatus.InTransit, name: 'в пути', code: 5 },
   { type: OrderStatus.Delivered, name: 'доставлен', code: 6 },
-];
-
-export const statusValues2: StatusValue[] = [
   { type: OrderStatus.ReturnRequested, name: 'запрос на возврат', code: 7 },
   { type: OrderStatus.OrderCancelled, name: 'заказ отменён', code: 8 },
 ];
