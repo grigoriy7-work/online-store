@@ -49,11 +49,14 @@ export const CategoryCardList: FC<CategoryCardListProps> = ({ readProducts }) =>
         border: '1px solid var(--background-color-header)',
         borderRadius: 10,
         marginBottom: 15,
+        width: 150,
       }}
     >
-      <Checkbox.Group options={categoriesOptions} onChange={onChange} />
+      <Space direction="vertical">
+        <Checkbox.Group options={categoriesOptions} onChange={onChange} />
 
-      <Space>{true && <ProductButtonAdd />}</Space>
+        {true && <ProductButtonAdd />}
+      </Space>
     </div>
   );
 };

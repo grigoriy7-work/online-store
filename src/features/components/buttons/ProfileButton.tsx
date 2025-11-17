@@ -28,7 +28,7 @@ export const ProfileButton: FC = () => {
     },
     {
       key: 'add-product',
-      label: 'Добавить товар',
+      label: 'Создать товар',
     },
     {
       key: 'categories',

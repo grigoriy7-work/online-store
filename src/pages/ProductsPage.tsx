@@ -16,8 +16,8 @@ export const ProductsPage: FC = () => {
   useEffect(() => {
     if (token)
       trigger({
-        categoryIds: ['69130fc28e877ac8a9c6ea42', '691410478e877ac8a9c6eb38'],
-        sorting: { field: 'name', type: 'ASC' },
+        categoryIds: [],
+        sorting: { field: 'createdAt', type: 'DESC' },
       });
   }, [token]);
 
@@ -25,7 +25,7 @@ export const ProductsPage: FC = () => {
     <div className={styles.page}>
       <Spin spinning={isLoading}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ marginRight: 15, width: 150 }}>
+          <div style={{ marginRight: 15 }}>
             <CategoryCardList
               readProducts={(categoryIds) => trigger({ categoryIds: categoryIds })}
             />

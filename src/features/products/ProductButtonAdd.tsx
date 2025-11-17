@@ -12,7 +12,7 @@ export const ProductButtonAdd: FC = () => {
 
   return (
     <>
-      <Button onClick={showModal}>Создать</Button>
+      <Button onClick={showModal}>Создать товар</Button>
       <ProductWindow isOpen={isModalOpen} closeFunc={() => setIsModalOpen(false)} type="create" />
     </>
   );

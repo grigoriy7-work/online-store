@@ -80,6 +80,7 @@ export const ProductForm: FC<ProductFormProps> = memo(({ form, productHandler })
           maxCount={1}
           fileList={fileList}
           onChange={handleChange}
+          accept="image/jpeg, image/png"
         ></Upload.Dragger>
       </Form.Item>
     </Form>
