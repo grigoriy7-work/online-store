@@ -1,5 +1,5 @@
 import { baseApi } from '../../app/api/baseApi';
-import type { Order, Params } from '../../app/api/types/typesOrders';
+import type { Order, Params, ParamsUpdateWithId } from '../../app/api/types/typesOrders';
 import type { Result, Filters } from '../../app/api/types/types';
 
 export const orderEndpoints = baseApi.injectEndpoints({
@@ -8,6 +8,7 @@ export const orderEndpoints = baseApi.injectEndpoints({
       query: () => ({
         url: '/orders',
       }),
+      providesTags: ['Orders'],
     }),
     createOrder: builder.mutation<Order, Params>({
       query: (orderData) => ({
@@ -15,8 +16,18 @@ export const orderEndpoints = baseApi.injectEndpoints({
         url: 'orders',
         body: orderData,
       }),
+      invalidatesTags: ['Orders'],
+    }),
+    updateOrder: builder.mutation<Order, ParamsUpdateWithId>({
+      query: (orderData) => ({
+        method: 'PATCH',
+        url: `orders/${orderData.id}`,
+        body: orderData,
+      }),
+      invalidatesTags: ['Orders'],
     }),
   }),
 });
 
-export const { useLazyGetOrdersQuery, useCreateOrderMutation } = orderEndpoints;
+export const { useLazyGetOrdersQuery, useCreateOrderMutation, useUpdateOrderMutation } =
+  orderEndpoints;

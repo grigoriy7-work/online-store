@@ -17,7 +17,7 @@ export type OrderProduct = {
   quantity: number;
 };
 
-enum OrderStatus {
+export enum OrderStatus {
   PendingConfirmation = 'pending_confirmation',
   Processing = 'processing',
   Packaging = 'packaging',
@@ -34,4 +34,13 @@ export type Params = {
     quantity: number;
   }>;
   status?: OrderStatus;
+};
+
+type ParamsUpdate = {
+  productIds?: string[];
+  status?: OrderStatus;
+};
+
+export type ParamsUpdateWithId = ParamsUpdate & {
+  id: string;
 };
