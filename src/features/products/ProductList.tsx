@@ -1,6 +1,6 @@
 import type { FC, MouseEvent } from 'react';
 import { useState } from 'react';
-import { List, Card } from 'antd';
+import { List, Card, Image } from 'antd';
 import type { Product, ParamsWithId } from '../../app/api/types/typesProducts';
 import photo from './../../assets/images/min_noImage.jpg';
 import { ShoppingCartOutlined, EditOutlined } from '@ant-design/icons';
@@ -49,8 +49,7 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
             <Card
               hoverable
               cover={
-                <img
-                  draggable={false}
+                <Image
                   alt={`фото ${product?.name}`}
                   src={product.photo == undefined ? photo : product.photo.replace('http', 'https')}
                 />
