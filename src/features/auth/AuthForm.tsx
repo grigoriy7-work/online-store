@@ -6,8 +6,11 @@ import { useSignUpMutation, useSignInMutation } from './authEndpoints';
 import type { ServerErrors } from '../../app/types/typesError';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../app/store';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState, AppDispatch } from '../../app/store';
+import { useMutation } from '@apollo/client/react';
+import { type LoginRequestVariables, type LoginResponse, LOGIN_MUTATION } from './graphql/mutation';
+import { setToken } from './authSlice';
 
 type User = {
   email: string;
@@ -24,6 +27,9 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
   const [signUp, { isError: isErrorSignUp, error: errorSignUp }] = useSignUpMutation();
   const [signIn, { isError: isErrorSignIn, error: errorSignIn }] = useSignInMutation();
   const [api, contextHolder] = notification.useNotification();
+  const [loginMutation] = useMutation<LoginResponse, LoginRequestVariables>(LOGIN_MUTATION);
+  const dispatch = useDispatch<AppDispatch>();
+
   const navigate = useNavigate();
   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 
@@ -83,7 +89,10 @@ export const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
       console.info('values', values);
       switch (type) {
         case 'signIn':
-          await signIn(values);
+          //await signIn(values);
+          const response = await loginMutation({ variables: values });
+          const newToken = response?.data?.profile.signin.token;
+          dispatch(setToken(newToken));
           break;
         case 'signUp':
           await signUp({ ...values, commandId: import.meta.env.VITE_COMMANDID });
