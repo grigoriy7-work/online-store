@@ -1,5 +1,5 @@
-import type { FC, MouseEvent } from 'react';
-import { useState } from 'react';
+import type { FC, MouseEvent, Ref } from 'react';
+import { useState, useEffect } from 'react';
 import { List, Card, Image, Typography, Space } from 'antd';
 import type { Product, ParamsWithId } from '../../app/types/typesProducts';
 import photo from './../../assets/images/min_noImage.jpg';
@@ -11,9 +11,10 @@ import { ProductWindow } from './ProductWindow';
 
 export interface ProductListProps {
   products: Product[];
+  lastElementRef: Ref<HTMLDivElement> | null;
 }
 
-export const ProductList: FC<ProductListProps> = ({ products }) => {
+export const ProductList: FC<ProductListProps> = ({ products, lastElementRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const [isModalProductOpen, setIsModalProductOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ParamsWithId | undefined>();
@@ -39,44 +40,48 @@ export const ProductList: FC<ProductListProps> = ({ products }) => {
       <List
         grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 6 }}
         dataSource={products}
-        renderItem={(product) => (
+        renderItem={(product, index) => (
           <List.Item>
-            <Card
-              hoverable
-              cover={
-                <Image
-                  alt={`фото ${product?.name}`}
-                  src={product.photo == undefined ? photo : product.photo.replace('http', 'https')}
-                  preview={product.photo !== undefined}
-                />
-              }
-              actions={[
-                true && (
-                  <EditOutlined
-                    key="edit"
-                    style={{ fontSize: '1.5em' }}
-                    onClick={() => editProductHandler(product)}
+            <div ref={products.length === index + 1 ? lastElementRef : null}>
+              <Card
+                hoverable
+                cover={
+                  <Image
+                    alt={`фото ${product?.name}`}
+                    src={
+                      product.photo == undefined ? photo : product.photo.replace('http', 'https')
+                    }
+                    preview={product.photo !== undefined}
                   />
-                ),
-                <ShoppingCartOutlined
-                  style={{ fontSize: '1.6em' }}
-                  onClick={(e) => clickHandler(e, product)}
-                />,
-              ].filter(Boolean)}
-            >
-              <Card.Meta
-                title={product.name}
-                description={
-                  <Space direction="vertical">
-                    <Typography.Text>цена: {product.price}</Typography.Text>
-                    <Typography.Text ellipsis italic>
-                      {product.desc}
-                    </Typography.Text>
-                  </Space>
                 }
-              />
-              <div style={{ alignSelf: 'end' }}></div>
-            </Card>
+                actions={[
+                  true && (
+                    <EditOutlined
+                      key="edit"
+                      style={{ fontSize: '1.5em' }}
+                      onClick={() => editProductHandler(product)}
+                    />
+                  ),
+                  <ShoppingCartOutlined
+                    style={{ fontSize: '1.6em' }}
+                    onClick={(e) => clickHandler(e, product)}
+                  />,
+                ].filter(Boolean)}
+              >
+                <Card.Meta
+                  title={product.name}
+                  description={
+                    <Space direction="vertical">
+                      <Typography.Text>цена: {product.price}</Typography.Text>
+                      <Typography.Text ellipsis italic>
+                        {product.desc}
+                      </Typography.Text>
+                    </Space>
+                  }
+                />
+                <div style={{ alignSelf: 'end' }}></div>
+              </Card>
+            </div>
           </List.Item>
         )}
       />
