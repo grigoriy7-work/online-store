@@ -1,5 +1,5 @@
 import type { FC, MouseEvent, Ref } from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { List, Card, Image, Typography, Space } from 'antd';
 import type { Product, ParamsWithId } from '../../app/types/typesProducts';
 import photo from './../../assets/images/min_noImage.jpg';
